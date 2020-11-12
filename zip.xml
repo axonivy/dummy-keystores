@@ -8,7 +8,7 @@
 
     <fileSets>
         <fileSet>
-            <directory>generated</directory>
+            <directory>${generated.dir}</directory>
             <outputDirectory>.</outputDirectory>
         </fileSet>
     </fileSets>

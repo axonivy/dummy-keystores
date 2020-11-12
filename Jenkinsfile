@@ -19,9 +19,10 @@ pipeline {
         sh './generate.sh'
 
         script {
-          maven cmd: 'clean deploy'          
+          maven cmd: '-f pom-designer.xml clean deploy'
+          maven cmd: '-f pom-engine.xml clean deploy'          
         }
-        archiveArtifacts 'target/*.zip'
+        archiveArtifacts 'generated/**/*'
         recordIssues tools: [mavenConsole()], unstableTotalAll: 1
       }
     }

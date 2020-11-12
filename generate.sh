@@ -1,7 +1,6 @@
 #!/bin/bash
 
 KEYTOOL=$JAVA_HOME/bin/keytool
-
 GENEARTED_DIR=generated
 KEYSTORE=${GENEARTED_DIR}/keystore.p12
 TRUSTSTORE=${GENEARTED_DIR}/truststore.p12
@@ -11,7 +10,7 @@ ALIAS=ivy
 
 # clean
 rm -rf ${GENEARTED_DIR}
-mkdir ${GENEARTED_DIR}
+mkdir -p ${GENEARTED_DIR}
 
 # create a keystore with a certificate
 $KEYTOOL -genkeypair \
@@ -46,4 +45,17 @@ $KEYTOOL -importcert \
     -alias $ALIAS \
     -file $CERT
 
+# clean
 rm $CERT
+
+# engine truststore must be empty
+mkdir ${GENEARTED_DIR}/designer ${GENEARTED_DIR}/engine
+cp ${GENEARTED_DIR}/*.p12 ${GENEARTED_DIR}/designer
+cp ${GENEARTED_DIR}/*.p12 ${GENEARTED_DIR}/engine
+rm ${GENEARTED_DIR}/*.p12
+
+$KEYTOOL -delete \
+    -v \
+    -keystore ${GENEARTED_DIR}/engine/truststore.p12 \
+    -storepass $PASSWORD \
+    -alias $ALIAS

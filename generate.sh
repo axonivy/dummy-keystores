@@ -19,7 +19,7 @@ $KEYTOOL -genkeypair \
     -storepass $PASSWORD \
     -storetype 'pkcs12' \
     -alias $ALIAS \
-    -dname 'CN=AXON Ivy AG, OU=DEVELOPMENT, O=AXON Ivy AG, L=Zug, ST=Zug, C=CH' \
+    -dname 'CN=Axon Ivy AG, OU=DEVELOPMENT, O=Axon Ivy AG, L=Zug, ST=Zug, C=CH' \
     -keypass $PASSWORD \
     -validity '730' \
     -keyalg 'RSA' \

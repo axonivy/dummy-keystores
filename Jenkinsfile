@@ -23,7 +23,7 @@ pipeline {
           maven cmd: '-f pom-engine.xml clean deploy'          
         }
         archiveArtifacts 'generated/**/*'
-        recordIssues tools: [mavenConsole()], unstableTotalAll: 1
+        recordIssues tools: [mavenConsole()], qualityGates: [[threshold: 1, type: 'TOTAL']]
       }
     }
   }

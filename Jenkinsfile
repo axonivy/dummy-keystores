@@ -19,12 +19,22 @@ pipeline {
         sh './generate.sh'
 
         script {
-          maven cmd: '-f pom-designer.xml clean deploy'
-          maven cmd: '-f pom-engine.xml clean deploy'          
+          dir ('designer') {
+            def phase = isReleaseOrMasterBranch() ? 'deploy' : 'verify'
+            maven cmd: "clean ${phase}"
+          }
+          dir ('engine') {
+            def phase = isReleaseOrMasterBranch() ? 'deploy' : 'verify'
+            maven cmd: "clean ${phase}"
+          }
         }
-        archiveArtifacts 'generated/**/*'
+        archiveArtifacts '**/generated/**/*'
         recordIssues tools: [mavenConsole()], qualityGates: [[threshold: 1, type: 'TOTAL']]
       }
     }
   }
+}
+
+def isReleaseOrMasterBranch() {
+  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }

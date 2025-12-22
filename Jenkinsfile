@@ -18,11 +18,7 @@ pipeline {
       steps {
         sh './generate.sh'
 
-        script {
-          dir ('designer') {
-            def phase = isReleaseOrMasterBranch() ? 'deploy' : 'verify'
-            maven cmd: "clean ${phase}"
-          }
+        script {          
           dir ('engine') {
             def phase = isReleaseOrMasterBranch() ? 'deploy' : 'verify'
             maven cmd: "clean ${phase}"

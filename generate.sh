@@ -49,8 +49,7 @@ $KEYTOOL -importcert \
 rm $CERT
 
 # engine truststore must be empty
-mkdir ${GENEARTED_DIR}/designer ${GENEARTED_DIR}/engine
-cp ${GENEARTED_DIR}/*.p12 ${GENEARTED_DIR}/designer
+mkdir ${GENEARTED_DIR}/engine
 cp ${GENEARTED_DIR}/*.p12 ${GENEARTED_DIR}/engine
 rm ${GENEARTED_DIR}/*.p12
 

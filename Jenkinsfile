@@ -20,7 +20,7 @@ pipeline {
 
         script {          
           dir ('engine') {
-            def phase = isReleaseOrMasterBranch() ? 'deploy' : 'verify'
+            def phase = isReleasingBranch() ? 'deploy' : 'verify'
             maven cmd: "clean ${phase}"
           }
         }
@@ -29,8 +29,4 @@ pipeline {
       }
     }
   }
-}
-
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }

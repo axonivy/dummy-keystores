@@ -25,7 +25,11 @@ pipeline {
           }
         }
         archiveArtifacts '**/generated/**/*'
-        recordIssues tools: [mavenConsole()], qualityGates: [[threshold: 1, type: 'TOTAL']]
+        withChecks('Maven Issues') {
+          recordIssues tools: [mavenConsole()], qualityGates: [[threshold: 1, type: 'TOTAL']], filters: [
+            excludeMessage('Using credentials of server.*')
+          ]
+        }
       }
     }
   }
